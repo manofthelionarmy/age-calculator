@@ -46,9 +46,8 @@ main {
   display: flex;
   justify-content: center;
   background-color: hsl(0, 0%, 100%);
-  width: 40vw;
-  height: 60vh;
-  padding-top: 60px;
+  width: 41vw;
+  height: 64vh;
   flex-direction: column;
   border-radius: 20px;
   border-bottom-right-radius: 30%;
@@ -65,23 +64,25 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  transform: translateY(5px);
 }
 
 .icon {
   display: flex;
-  width: 60px;
-  height: 90px;
+  width: 65px;
+  height: 65px;
   background-color: hsl(259, 100%, 65%);
   border-radius: 50%;
   justify-content: center;
   padding: 5px;
   position: relative;
-  top: -28px;
+  top: -30px;
   left: 35vw;
 }
 
 .icon img {
-  transform: scale(0.68);
+  transform: scale(0.60);
 }
 
 p {

@@ -69,15 +69,14 @@ form {
 
 .icon {
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 90px;
   background-color: hsl(259, 100%, 65%);
   border-radius: 50%;
   justify-content: center;
   padding: 5px;
   position: relative;
-  top: -25px;
-  /* left: 100%; */
+  top: -28px;
   left: 35vw;
 }
 
@@ -108,7 +107,7 @@ p {
 }
 
 .input-block:nth-child(n+2) {
-  margin: 0 auto;
+  margin-left: 32px;
 }
 
 .input-block input {

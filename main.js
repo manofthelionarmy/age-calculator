@@ -3,7 +3,7 @@ import './style.css'
 const defaultDate = new Date()
 
 document.getElementById('day').addEventListener('input', (event) => { 
-  document.getElementById('days-result').innerText = defaultDate.getDate() - Number(event.target.value)
+  document.getElementById('days-result').innerText = Math.abs(defaultDate.getDate() - Number(event.target.value))
 })
 
 document.getElementById('month').addEventListener('input', (event) => { 

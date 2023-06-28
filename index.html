@@ -11,7 +11,7 @@
     <main>
       <div class="container">
         <div class="form-component">
-          <form>
+          <form id="form-control" novalidate>
             <!-- TODO: have exepcted values -->
             <div class="input-block">
               <label for="day">DAY</label>
@@ -25,6 +25,7 @@
               <label for="year">YEAR</label>
               <input id="year" type="text" placeholder="YYYY" onfocus="this.value=''" maxlength="4" minlength="4">
             </div>
+            <input type="submit" style="display: none" />
           </form>
         </div>
         <div class="icon">

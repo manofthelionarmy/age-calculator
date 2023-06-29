@@ -25,7 +25,8 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
     }
     if ( !validInput(elem) ) {
       elem.insertAdjacentHTML('afterend', `<p class="error">hello</p>`)
-      return
+      elem.previousElementSibling.classList.add('error-label') 
+      elem.classList.add('error-input')
     }
   }
 })
@@ -33,6 +34,9 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
 function validInput(elem) {
   const {tooShort, tooLong} = elem.validity
   if (tooShort || tooLong) {
+    return false
+  }
+  if (elem.value.length === 0) {
     return false
   }
   return true

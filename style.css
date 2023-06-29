@@ -124,17 +124,25 @@ p {
   border-radius: 5px;
 }
 
-.input-block label {
+.input-block > label {
   color: hsl(0, 1%, 44%);
   font-family: Poppins-Regular;
   position: relative;
   top: -5px;
 }
 
+.input-block > .error-label {
+  color: salmon;
+}
+
+.input-block > .error-input {
+  border-color: salmon;
+}
+
 .error {
   position: relative;
   font-size: 16px;
-  margin: 0 0 16px 0;
+  margin: 8px 0 16px 0;
   top: 8px;
   text-align: left;
   color: salmon;

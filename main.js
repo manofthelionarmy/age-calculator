@@ -21,12 +21,18 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   const day = document.getElementById('day')
   for ( const elem of [year, month, day] ) {
     if ( elem.nextElementSibling !== null)  {
-      elem.nextElementSibling.remove()
+      // <p> is nextElementSibling
+      elem.nextElementSibling.classList.add('hide-error')
+      elem.nextElementSibling.classList.remove('show-error')
+      // elem.nextElementSibling.classList.add('valid-input')
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
+    // how do I add css animation when I change the display from none?
     if ( !validInput(elem) ) {
-      elem.insertAdjacentHTML('afterend', `<p class="error">hello</p>`)
+      // elem.insertAdjacentHTML('afterend', `<p class="error">hello</p>`)
+      elem.nextElementSibling.classList.remove('hide-error')
+      elem.nextElementSibling.classList.add('show-error')
       elem.previousElementSibling.classList.add('error-label') 
       elem.classList.add('error-input')
     }

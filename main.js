@@ -26,7 +26,6 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
-    // how do I add css animation when I change the display from none?
     if ( !validInput(elem) ) {
       elem.nextElementSibling.classList.remove('hide-error')
       elem.nextElementSibling.classList.add('show-error')

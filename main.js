@@ -22,6 +22,8 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   for ( const elem of [year, month, day] ) {
     if ( elem.nextElementSibling !== null)  {
       elem.nextElementSibling.remove()
+      elem.previousElementSibling.classList.remove('error-label') 
+      elem.classList.remove('error-input')
     }
     if ( !validInput(elem) ) {
       elem.insertAdjacentHTML('afterend', `<p class="error">hello</p>`)

@@ -148,6 +148,7 @@ p {
   margin: 0px 0 16px 0;
   text-align: left;
   color: salmon;
+  z-index: -1;
 }
 
 .show-error {
@@ -155,11 +156,13 @@ p {
   transform: translateY(16px);
   opacity: 1;
   transition: 0.6s ease;
+  z-index: 1;
 }
 
 .hide-error {
   visibility: hidden;
   opacity: 0;
+  transform: translateY(-16px);
   transition: 0.6s ease;
   z-index: -1;
 }

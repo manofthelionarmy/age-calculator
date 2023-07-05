@@ -22,7 +22,15 @@ document.getElementById('month').addEventListener('input', (event) => {
 })
 
 document.getElementById('year').addEventListener('input', (event) => { 
-  document.getElementById('years-result').innerText = defaultDate.getFullYear() - Number(event.target.value)
+  // TODO: should I style when input is valid; is this required or an additional feature?
+  const year = document.getElementById('year')
+  const valid = validInputHelper(year.validity, validityConfig)
+  let content = "--";
+  if (valid) {
+    // TODO: should I add also display error if invalid?
+    content = defaultDate.getFullYear() - Number(event.target.value)
+  } 
+  document.getElementById('years-result').innerText = content
 })
 
 document.getElementById('form-control').addEventListener('submit', (event) => {
@@ -32,6 +40,7 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   const day = document.getElementById('day')
   for ( const elem of [year, month, day] ) {
     if ( elem.nextElementSibling !== null)  {
+      // TODO: make this reusable to hide error
       elem.nextElementSibling.classList.add('hide-error')
       elem.nextElementSibling.classList.remove('show-error')
       elem.previousElementSibling.classList.remove('error-label') 
@@ -39,6 +48,7 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
     }
     const [valid, msg] = validInput(elem.validity, validityConfig)
     if ( !valid ) {
+      // TODO: make this reusable to show error
       elem.nextElementSibling.classList.remove('hide-error')
       elem.nextElementSibling.classList.add('show-error')
       elem.nextElementSibling.textContent = msg

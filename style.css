@@ -165,6 +165,7 @@ p {
   transition: 0.6s ease;
 }
 
+/*this hides the arrow tickers for input with type number*/
 input[type=number] {
   -moz-appearance: textfield;
 }

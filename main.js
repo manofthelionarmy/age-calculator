@@ -2,6 +2,9 @@ import './style.css'
 
 const defaultDate = new Date()
 
+// dynamicall set the max attribute
+document.getElementById('year').setAttribute('max', defaultDate.getFullYear())
+
 document.getElementById('day').addEventListener('input', (event) => { 
   document.getElementById('days-result').innerText = Math.abs(defaultDate.getDate() - Number(event.target.value))
 })
@@ -26,9 +29,11 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
-    if ( !validInput(elem) ) {
+    const [valid, msg] = validInput(elem)
+    if ( !valid ) {
       elem.nextElementSibling.classList.remove('hide-error')
       elem.nextElementSibling.classList.add('show-error')
+      elem.nextElementSibling.textContent = msg
       elem.previousElementSibling.classList.add('error-label') 
       elem.classList.add('error-input')
     }
@@ -36,12 +41,33 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
 })
 
 function validInput(elem) {
-  const {tooShort, tooLong} = elem.validity
-  if (tooShort || tooLong) {
-    return false
+  const valid = validInputHelper(elem.validity)
+  const msg = getErrorMsg(elem.validity)
+  return [valid, msg]
+}
+
+function validInputHelper(validity) {
+  const {tooShort, tooLong, rangeOverflow, rangeUnderflow, valueMissing} = validity
+  // if any of these are true, then we have caught an invalid value
+  return !(tooShort || tooLong || rangeOverflow || rangeUnderflow || valueMissing)
+}
+
+function getErrorMsg(validity) {
+  const {tooShort, tooLong, rangeOverflow, rangeUnderflow, valueMissing} = validity
+  if ( tooShort ) {
+    return "too short" 
   }
-  if (elem.value.length === 0) {
-    return false
+  if (tooLong) {
+    return "too long"
   }
-  return true
+  if (rangeOverflow) {
+    return "exceeds max value"
+  }
+  if (rangeUnderflow) {
+    return "below min value"
+  }
+  if (valueMissing) {
+    return "missing value"
+  }
+  return ""
 }

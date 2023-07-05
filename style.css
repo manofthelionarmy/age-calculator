@@ -165,3 +165,6 @@ p {
   transition: 0.6s ease;
 }
 
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -37,7 +37,7 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
-    const [valid, msg] = validInput(elem, validityConfig)
+    const [valid, msg] = validInput(elem.validity, validityConfig)
     if ( !valid ) {
       elem.nextElementSibling.classList.remove('hide-error')
       elem.nextElementSibling.classList.add('show-error')
@@ -48,9 +48,9 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   }
 })
 
-function validInput(elem, validityCfg) {
-  const valid = validInputHelper(elem.validity, validityCfg)
-  const msg = getErrorMsg(elem.validity, validityCfg)
+function validInput(validity, validityCfg) {
+  const valid = validInputHelper(validity, validityCfg)
+  const msg = getErrorMsg(validity, validityCfg)
   return [valid, msg]
 }
 

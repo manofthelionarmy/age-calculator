@@ -2,6 +2,14 @@ import './style.css'
 
 const defaultDate = new Date()
 
+const validityConfig = {
+  tooShort: "too short",
+  tooLong: "too long",
+  valueMissing: "value missing",
+  rangeOverflow: "exceeds maximum value",
+  rangeUnderflow: "below min value"
+}
+
 // dynamicall set the max attribute
 document.getElementById('year').setAttribute('max', defaultDate.getFullYear())
 
@@ -29,7 +37,7 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
-    const [valid, msg] = validInput(elem)
+    const [valid, msg] = validInput(elem, validityConfig)
     if ( !valid ) {
       elem.nextElementSibling.classList.remove('hide-error')
       elem.nextElementSibling.classList.add('show-error')
@@ -40,34 +48,31 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   }
 })
 
-function validInput(elem) {
-  const valid = validInputHelper(elem.validity)
-  const msg = getErrorMsg(elem.validity)
+function validInput(elem, validityCfg) {
+  const valid = validInputHelper(elem.validity, validityCfg)
+  const msg = getErrorMsg(elem.validity, validityCfg)
   return [valid, msg]
 }
 
-function validInputHelper(validity) {
-  const {tooShort, tooLong, rangeOverflow, rangeUnderflow, valueMissing} = validity
-  // if any of these are true, then we have caught an invalid value
-  return !(tooShort || tooLong || rangeOverflow || rangeUnderflow || valueMissing)
+function validInputHelper(validity, validityCfg) {
+  for ( const key in validityCfg ) {
+    // if configured rule is invalid in the input, return false
+    if ( key in validity && validity[key] ) {
+      return false
+    }
+  }
+  // if it isn't found, return true
+  return true
 }
 
-function getErrorMsg(validity) {
-  const {tooShort, tooLong, rangeOverflow, rangeUnderflow, valueMissing} = validity
-  if ( tooShort ) {
-    return "too short" 
-  }
-  if (tooLong) {
-    return "too long"
-  }
-  if (rangeOverflow) {
-    return "exceeds max value"
-  }
-  if (rangeUnderflow) {
-    return "below min value"
-  }
-  if (valueMissing) {
-    return "missing value"
+function getErrorMsg(validity, validityCfg) {
+  // weird refactor, but if the any of the configured valid properties
+  // is found in the elements input validity object, then we return the configured message
+  // if the input value is invalid
+  for ( const key in validityCfg ) {
+    if ( key in validity && validity[key]) {
+      return validityCfg[key]
+    }
   }
   return ""
 }

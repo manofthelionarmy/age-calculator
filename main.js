@@ -34,7 +34,7 @@ function underflow_msg(input) {
   }
 }
 
-function maxAmountOfDays(month) {
+function maxAmountOfDays(month, year) {
   // these are the amount of days for the months
   switch(month) {
     case 1:
@@ -52,7 +52,7 @@ function maxAmountOfDays(month) {
       return 30
     case 2:
       // handle leap years for February
-      return defaultDate.getFullYear() % 4 == 0 ? 29 : 28;
+      return year % 4 == 0 ? 29 : 28;
     default:
       return NaN
   }
@@ -67,7 +67,7 @@ document.getElementById('day').addEventListener('input', (event) => {
 
 document.getElementById('month').addEventListener('input', (event) => { 
   document.getElementById('months-result').innerText = Math.abs(defaultDate.getMonth() + 1 - Number(event.target.value))
-  document.getElementById('day').setAttribute('max', maxAmountOfDays(Number(event.target.value)))
+  document.getElementById('day').setAttribute('max', maxAmountOfDays(Number(event.target.value), defaultDate.getFullYear()))
 })
 
 document.getElementById('year').addEventListener('input', (event) => { 

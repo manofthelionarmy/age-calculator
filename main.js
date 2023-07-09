@@ -5,9 +5,33 @@ const defaultDate = new Date()
 const validityConfig = {
   tooShort: "too short",
   tooLong: "too long",
-  valueMissing: "value missing",
-  rangeOverflow: "exceeds maximum value",
-  rangeUnderflow: "below min value"
+  valueMissing: (month_day_or_year) => `${month_day_or_year} is required`,
+  rangeOverflow: overflow_message,
+  rangeUnderflow: underflow_msg,
+}
+
+const MONTH = 'month'
+const DAY = 'day'
+const YEAR = 'year'
+
+function overflow_message(input) {
+  switch (input) {
+    case MONTH:
+     return 'Must be a valid month' 
+    case DAY:
+     return 'Must be a valid day' 
+    case YEAR:
+      return 'Must be in the past'
+  }
+}
+
+function underflow_msg(input) {
+  switch (input) {
+    case MONTH:
+     return 'Must be a valid month' 
+    case DAY:
+     return 'Must be a valid day' 
+  }
 }
 
 // dynamicall set the max attribute
@@ -46,7 +70,8 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
       elem.previousElementSibling.classList.remove('error-label') 
       elem.classList.remove('error-input')
     }
-    const [valid, msg] = validInput(elem.validity, validityConfig)
+
+    const [valid, msg] = validInput(elem.validity, validityConfig, elem.id)
     if ( !valid ) {
       // TODO: make this reusable to show error
       elem.nextElementSibling.classList.remove('hide-error')
@@ -58,9 +83,9 @@ document.getElementById('form-control').addEventListener('submit', (event) => {
   }
 })
 
-function validInput(validity, validityCfg) {
+function validInput(validity, validityCfg, month_day_or_year) {
   const valid = validInputHelper(validity, validityCfg)
-  const msg = getErrorMsg(validity, validityCfg)
+  const msg = getErrorMsg(validity, validityCfg, month_day_or_year)
   return [valid, msg]
 }
 
@@ -75,13 +100,14 @@ function validInputHelper(validity, validityCfg) {
   return true
 }
 
-function getErrorMsg(validity, validityCfg) {
+function getErrorMsg(validity, validityCfg, month_day_or_year) {
   // weird refactor, but if the any of the configured valid properties
   // is found in the elements input validity object, then we return the configured message
   // if the input value is invalid
   for ( const key in validityCfg ) {
     if ( key in validity && validity[key]) {
-      return validityCfg[key]
+      const f = validityCfg[key]
+      return f(month_day_or_year)
     }
   }
   return ""

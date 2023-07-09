@@ -106,6 +106,7 @@ function getErrorMsg(validity, validityCfg, month_day_or_year) {
   // if the input value is invalid
   for ( const key in validityCfg ) {
     if ( key in validity && validity[key]) {
+      // f is a function that returns the error message for day, month, or year input
       const f = validityCfg[key]
       return f(month_day_or_year)
     }

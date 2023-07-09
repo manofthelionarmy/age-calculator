@@ -51,7 +51,7 @@ function maxAmountOfDays(month) {
     case 11:
       return 30
     case 2:
-      // handle leap yeare for February
+      // handle leap years for February
       return defaultDate.getFullYear() % 4 == 0 ? 29 : 28;
     default:
       return NaN
